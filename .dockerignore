@@ -1,0 +1,27 @@
+# Build output
+build/
+.gradle/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Git
+.git/
+.gitignore
+
+# Docs and misc
+*.md
+!README.md
+
+# Local config (may contain secrets)
+application-local.yml
+
+# Uploads (runtime data)
+uploads/
+
+# Test
+src/test/

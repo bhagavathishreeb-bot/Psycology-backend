@@ -1,6 +1,8 @@
 package com.psycology.backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
+import java.time.LocalDate;
 import java.util.Map;
 
 public class BookingRequest {
@@ -56,6 +58,14 @@ public class BookingRequest {
     @Min(0)
     private Double sessionPrice;
 
+    @NotNull(message = "Appointment date is required")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate appointmentDate;
+
+    @NotBlank(message = "Appointment slot start is required (HH:mm, e.g. 09:00)")
+    @Pattern(regexp = "^([01]\\d|2[0-3]):[0-5]\\d$", message = "Use 24h HH:mm (e.g. 09:00)")
+    private String appointmentSlotStart;
+
     // Getters and Setters
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
@@ -95,4 +105,10 @@ public class BookingRequest {
     public void setSessionDuration(String sessionDuration) { this.sessionDuration = sessionDuration; }
     public Double getSessionPrice() { return sessionPrice; }
     public void setSessionPrice(Double sessionPrice) { this.sessionPrice = sessionPrice; }
+    public LocalDate getAppointmentDate() { return appointmentDate; }
+    public void setAppointmentDate(LocalDate appointmentDate) { this.appointmentDate = appointmentDate; }
+    public String getAppointmentSlotStart() { return appointmentSlotStart; }
+    public void setAppointmentSlotStart(String appointmentSlotStart) {
+        this.appointmentSlotStart = appointmentSlotStart;
+    }
 }

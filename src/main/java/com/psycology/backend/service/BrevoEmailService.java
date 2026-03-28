@@ -53,11 +53,13 @@ public class BrevoEmailService {
             <p>Thank you for booking a counseling session with ManoTaranga. Your booking has been confirmed.</p>
             <p><strong>Booking Details:</strong></p>
             <ul>
+            <li>Date: %s</li>
+            <li>Time: %s</li>
             <li>Session: %s</li>
             <li>Duration: %s</li>
             <li>Amount: ₹%.2f</li>
             </ul>
-            <p>We will contact you shortly at %s to schedule your session.</p>
+            <p>We will contact you at %s if we need to adjust this time.</p>
             <p>Take care of your mental well-being.</p>
             </div>
             <div class="footer">ManoTaranga - Your mental wellness partner</div>
@@ -66,6 +68,8 @@ public class BrevoEmailService {
             </html>
             """.formatted(
                 booking.getName(),
+                booking.getAppointmentDate() != null ? booking.getAppointmentDate().toString() : "—",
+                booking.getAppointmentSlotStart() != null ? booking.getAppointmentSlotStart() + "" : "—",
                 booking.getSession(),
                 booking.getSessionDuration(),
                 booking.getSessionPrice(),
@@ -92,6 +96,8 @@ public class BrevoEmailService {
             <tr><td><strong>Name</strong></td><td>%s</td></tr>
             <tr><td><strong>Email</strong></td><td>%s</td></tr>
             <tr><td><strong>Phone</strong></td><td>%s</td></tr>
+            <tr><td><strong>Appointment date</strong></td><td>%s</td></tr>
+            <tr><td><strong>Appointment time</strong></td><td>%s</td></tr>
             <tr><td><strong>Age</strong></td><td>%d</td></tr>
             <tr><td><strong>Occupation</strong></td><td>%s</td></tr>
             <tr><td><strong>DOB</strong></td><td>%s</td></tr>
@@ -116,6 +122,8 @@ public class BrevoEmailService {
                 booking.getName(),
                 booking.getEmail(),
                 booking.getPhone(),
+                booking.getAppointmentDate() != null ? booking.getAppointmentDate().toString() : "—",
+                booking.getAppointmentSlotStart() != null ? booking.getAppointmentSlotStart() + "" : "—",
                 booking.getAge(),
                 booking.getOccupation(),
                 booking.getDob(),

@@ -1,5 +1,6 @@
 package com.psycology.backend;
 
+import com.psycology.backend.config.BookingAvailabilityProperties;
 import com.psycology.backend.config.BrevoProperties;
 import com.psycology.backend.config.GroqProperties;
 import com.psycology.backend.config.RazorpayProperties;
@@ -8,7 +9,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
-@EnableConfigurationProperties({BrevoProperties.class, GroqProperties.class, RazorpayProperties.class})
+@EnableConfigurationProperties({
+        BrevoProperties.class,
+        GroqProperties.class,
+        RazorpayProperties.class,
+        BookingAvailabilityProperties.class
+})
 public class BackendApplication {
 
 	public static void main(String[] args) {

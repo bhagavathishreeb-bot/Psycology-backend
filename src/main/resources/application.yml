@@ -28,6 +28,18 @@ spring:
 server:
   port: ${SERVER_PORT:8089}
 
+# Counseling booking: slot rules for GET /api/bookings/available-slots
+booking:
+  availability:
+    timezone: ${BOOKING_TIMEZONE:Asia/Kolkata}
+    first-slot-hour: 9
+    last-slot-end-hour: 20
+    excluded-slot-start-hours:
+      - 14
+      - 15
+    # ISO yyyy-MM-dd — list closed days (public holidays / festivals)
+    festival-dates: []
+
 # Brevo (Sendinblue) Email configuration
 brevo:
   api-key: ${BREVO_API_KEY}
@@ -36,13 +48,13 @@ brevo:
   admin-email: ${BREVO_ADMIN_EMAIL}
 # CORS - allow frontend
 cors:
-  allowed-origins: ${CORS_ORIGINS}
+  allowed-origins: ${CORS_ORIGINS:http://localhost:5173,http://localhost:3000}
 
 # Razorpay Payment Gateway
 razorpay:
   key-id: ${RAZORPAY_KEY_ID}
   key-secret: ${RAZORPAY_KEY_SECRET}
-  webhook-secret: ${RAZORPAY_WEBHOOK_SECRET}
+  webhook-secret: ${RAZORPAY_WEBHOOK_SECRET:}
 
 # Groq AI - Psychology chatbot
 groq:

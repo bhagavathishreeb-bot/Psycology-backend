@@ -1,7 +1,9 @@
 package com.psycology.backend.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Map;
 
 @Entity
@@ -66,6 +68,14 @@ public class Booking {
     @Column(nullable = false)
     private Double sessionPrice;
 
+    /** Scheduled session date (business calendar). */
+    @Column(name = "appointment_date")
+    private LocalDate appointmentDate;
+
+    /** Start of the one-hour slot (e.g. 09:00). */
+    @Column(name = "appointment_slot_start")
+    private LocalTime appointmentSlotStart;
+
     @Column(nullable = false)
     private String paymentStatus = "pending";
 
@@ -115,6 +125,12 @@ public class Booking {
     public void setSessionDuration(String sessionDuration) { this.sessionDuration = sessionDuration; }
     public Double getSessionPrice() { return sessionPrice; }
     public void setSessionPrice(Double sessionPrice) { this.sessionPrice = sessionPrice; }
+    public LocalDate getAppointmentDate() { return appointmentDate; }
+    public void setAppointmentDate(LocalDate appointmentDate) { this.appointmentDate = appointmentDate; }
+    public LocalTime getAppointmentSlotStart() { return appointmentSlotStart; }
+    public void setAppointmentSlotStart(LocalTime appointmentSlotStart) {
+        this.appointmentSlotStart = appointmentSlotStart;
+    }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public String getPaymentStatus() { return paymentStatus; }
     public void setPaymentStatus(String paymentStatus) { this.paymentStatus = paymentStatus; }

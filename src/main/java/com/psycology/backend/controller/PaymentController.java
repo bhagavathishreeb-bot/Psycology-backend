@@ -120,6 +120,12 @@ public class PaymentController {
                     request.getRazorpaySignature()
             );
             if (isValid) {
+                mappingRepository.findByRazorpayOrderId(request.getRazorpayOrderId()).ifPresent(mapping ->
+                        updatePaymentStatus(
+                                mapping.getOrderType(),
+                                mapping.getEntityId(),
+                                "paid",
+                                request.getRazorpayPaymentId()));
                 return ResponseEntity.ok(Map.of("success", true, "message", "Payment verified successfully"));
             }
             return ResponseEntity.badRequest()
@@ -187,10 +193,11 @@ public class PaymentController {
             });
         } else if ("booking".equalsIgnoreCase(orderType)) {
             bookingRepository.findById(entityId).ifPresent(booking -> {
+                boolean wasAlreadyPaid = "paid".equalsIgnoreCase(booking.getPaymentStatus());
                 booking.setPaymentStatus(status);
                 if (paymentId != null) booking.setPaymentId(paymentId);
                 bookingRepository.save(booking);
-                if ("paid".equals(status)) {
+                if ("paid".equals(status) && !wasAlreadyPaid) {
                     brevoEmailService.sendBookingConfirmationToCustomer(booking);
                     brevoEmailService.sendBookingNotificationToAdmin(booking);
                 }
